@@ -1,8 +1,6 @@
-package com.green.ex02;
+package com.green.Question;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class HelloKorea
+ * Servlet implementation class Q01_3
  */
-@WebServlet("/HelloKorea")
-public class HelloKorea extends HttpServlet {
+@WebServlet("/Q01_3")
+public class Q01_3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelloKorea() {
+    public Q01_3() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,26 +26,20 @@ public class HelloKorea extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		String greeting = "안녕하세요";
-		PrintWriter out = response.getWriter();
-		
-		
-		
-		out.println("<html><head>");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<h1>"+greeting+"</h1>");
-		out.println("</body>");
-		out.println("</html>");
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String[] dans = request.getParameterValues("gugudan");
+		
+		for(String dan: dans) {
+			for(int i=1;i<=9;i++) {
+				System.out.println(dan+"X"+i+"="+Integer.parseInt(dan)*i);
+			}
+		}
 	}
 
 }
