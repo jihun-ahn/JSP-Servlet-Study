@@ -153,14 +153,13 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-<<<<<<< HEAD
-      <Context docBase="ex01" path="/ex01" reloadable="true" source="org.eclipse.jst.jee.server:ex01"/>
-      <Context docBase="ex02" path="/ex02" reloadable="true" source="org.eclipse.jst.jee.server:ex02"/>
-      <Context docBase="ex04" path="/ex04" reloadable="true" source="org.eclipse.jst.jee.server:ex04"/></Host>
-=======
       
-      <Context docBase="ex02" path="/ex02" reloadable="true" source="org.eclipse.jst.jee.server:ex02"/><Context docBase="ex01" path="/ex01" reloadable="true" source="org.eclipse.jst.jee.server:ex01"/><Context docBase="Question" path="/Question" reloadable="true" source="org.eclipse.jst.jee.server:Question"/></Host>
->>>>>>> 56adbd006052b888ffb36d3501cede983942e439
+      <Context docBase="ex02" path="/ex02" reloadable="true" source="org.eclipse.jst.jee.server:ex02"/>
+      <Context docBase="ex01" path="/ex01" reloadable="true" source="org.eclipse.jst.jee.server:ex01"/>
+      <Context docBase="Question" path="/Question" reloadable="true" source="org.eclipse.jst.jee.server:Question"/>
+      <Context docBase="ex03" path="/ex03" reloadable="true" source="org.eclipse.jst.jee.server:ex03"/>
+      <Context docBase="ex04" path="/ex04" reloadable="true" source="org.eclipse.jst.jee.server:ex04"/>
+      <Context docBase="ex05" path="/ex05" reloadable="true" source="org.eclipse.jst.jee.server:ex05"/><Context docBase="ex06" path="/ex06" reloadable="true" source="org.eclipse.jst.jee.server:ex06"/><Context docBase="answer" path="/answer" reloadable="true" source="org.eclipse.jst.jee.server:answer"/></Host>
     </Engine>
   </Service>
 </Server>
