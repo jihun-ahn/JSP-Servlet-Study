@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>데이터베이스 조회</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<%!
@@ -21,19 +21,17 @@
 		String uId = "greenJSP"; 								// 접속 계정
 		String uPw = "jsp1234";									// 접속 계정의 비밀번호
 		
-		String sql = "SELECT * FROM member";
 	%>
-	
 	<table border="1">
-		<tr>
-			<td>이름</td>
-			<td>아이디</td>
-			<td>암호</td>
-			<td>이메일</td>
-			<td>전화번호</td>
-			<td>권한(0:일반회원, 1:관리자)</td>
-		</tr>	
-		<%
+	
+	<%	
+		String name = request.getParameter("name");
+		int size = Integer.parseInt(request.getParameter("size"));
+		String[] type = {"톨", "그란데", "벤티"};
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		int price;
+		String sql = "SELECT * FROM coffee WHERE NAME ="+"'"+name+"'";
 		try{
 			// 1단계 : 드라이버 로드
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -46,17 +44,16 @@
 			
 			// 4단계 : 쿼리문 실행
 			rs = stmt.executeQuery(sql);							// 읽어오기(R)를 위한 쿼리(메서드) 리턴값이 여러개의 레코드
-			//stmt.executeUpdate(sql);								// 기록, 변경, 삭제(CUD)을 위한 쿼리(메서드) 리턴값이 정수
 			
 			// 5단계 : 데이터 꺼내서 출력
 			while(rs.next()){
+				price = rs.getInt("price")+size*500;
 				out.println("<tr>");
 				out.println("<td>"+rs.getString("name")+"</td>");
-				out.println("<td>"+rs.getString("userid")+"</td>");
-				out.println("<td>"+rs.getString("userpwd")+"</td>");
-				out.println("<td>"+rs.getString("email")+"</td>");
-				out.println("<td>"+rs.getString("phone")+"</td>");
-				out.println("<td>"+rs.getInt("admin")+"</td>");
+				out.println("<td>"+type[size]+"</td>");
+				out.println("<td>"+price+"</td>");
+				out.println("<td>"+num+"</td>");
+				out.println("<td>"+price*num+"</td>");
 				out.println("</tr>");
 			}
 		}catch(Exception e){
@@ -73,8 +70,7 @@
 		}
 
 	%>
+	
 	</table>
-
-
 </body>
 </html>
