@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원 관리 사이트</title>
+</head>
+<body>
+<h1>회원 관리 사이트입니다</h1>
+<a href="login.do">로그인 페이지로 이동</a>
+
+<!--
+	서블릿=> 컨트롤러
+	JSP 화면 표시 담당
+	
+	DAO 데이터베이스 연결, 쿼리입력, 데이터 받는역할
+	
+ -->
+</body>
+</html>
