@@ -18,16 +18,38 @@ public class BoardListAction implements Action {	// 서블릿처럼 동작 (doGe
 			throws ServletException, IOException {
 		// 실질적으로 게시물 리스트를 가져와서 뷰에 연결해주는 메서드
 		
+//		String url = "board/boardList.jsp";
+//		
+//		BoardDAO dao = BoardDAO.getInstance();
+//		List<BoardVO> boardList = dao.selectAllBoards();
+//		
+//		request.setAttribute("boardList", boardList);
+//		
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+//		dispatcher.forward(request, response);
+		
+		
+		// 페이징 처리
 		String url = "board/boardList.jsp";
+		String _section = request.getParameter("section");
+		String _pageNum = request.getParameter("pageNum");
+		int section = Integer.parseInt((_section==null)?"1":_section);
+		int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
 		
 		BoardDAO dao = BoardDAO.getInstance();
-		List<BoardVO> boardList = dao.selectAllBoards();
+		int totalCnt = dao.selectAllNumBoard();
 		
+		List<BoardVO> boardList = dao.selectTargetBoard(section, pageNum);
+		
+		request.setAttribute("section", section);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("totalCnt", totalCnt);
 		request.setAttribute("boardList", boardList);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
-
+		
+		
 	}
 
 }
