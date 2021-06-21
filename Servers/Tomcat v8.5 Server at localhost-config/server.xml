@@ -180,7 +180,7 @@
       </Context>
       <Context docBase="movie" path="/movie" reloadable="true" source="org.eclipse.jst.jee.server:movie">
       		<Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/myoracle" password="jsp1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="greenJSP"/>
-      </Context></Host>
+      </Context><Context docBase="HRD_00" path="/HRD_00" reloadable="true" source="org.eclipse.jst.jee.server:HRD_00"/></Host>
     </Engine>
   </Service>
 </Server>
