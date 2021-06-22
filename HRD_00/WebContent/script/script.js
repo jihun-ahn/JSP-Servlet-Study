@@ -1,6 +1,0 @@
-/*
-*
-*/
-function chk(){
-	return true;
-}

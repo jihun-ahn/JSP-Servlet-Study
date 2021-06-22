@@ -55,8 +55,8 @@ public class MemberView extends HttpServlet {
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.updateMember(mVo);
 
-		response.sendRedirect(url);
-//		RequestDispatcher rd = request.getRequestDispatcher(url);
-//		rd.forward(request, response);
+//		response.sendRedirect(url);
+		RequestDispatcher rd = request.getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 }

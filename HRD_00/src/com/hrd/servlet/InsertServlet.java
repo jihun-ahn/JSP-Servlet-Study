@@ -29,7 +29,7 @@ public class InsertServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String url = "SelectAllServlet";
+		String url = "insertSucess.jsp";
 		
 		MemberVO mVo = new MemberVO();
 		mVo.setCustno(Integer.parseInt(request.getParameter("custno")));
@@ -48,10 +48,10 @@ public class InsertServlet extends HttpServlet {
 		mVo.setCity(request.getParameter("city"));
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.insertMember(mVo);
-		
-		response.sendRedirect(url);
-//		RequestDispatcher rd = request.getRequestDispatcher(url);
-//		rd.forward(request, response);
+
+//		response.sendRedirect(url);
+		RequestDispatcher rd = request.getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 
 }
