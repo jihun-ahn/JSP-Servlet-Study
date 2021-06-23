@@ -5,12 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>투표하기</title>
+<link type="text/css" rel="stylesheet" href="css/vote.css">
 <script type="text/javascript" src="script/vote.js"></script>
 </head>
 <body>
+	<jsp:include page="./deco/header.jsp"/>
+	<jsp:include page="./deco/nav.jsp"/>
 	<section>
 		<form action="InsertVote" method="POST" name="frm">
-			<table>
+			<table border="1" id="tbl">
 				<tr>
 					<td>주민번호</td>
 					<td><input type="text" name="v_jumin" id="v_jumin"></td>
@@ -41,7 +44,7 @@
 				</tr>
 				<tr>
 					<td>유권자확인</td>
-					<td><input type="radio" name="v_confirm" value="Y">확인<input type="radio" name="v_confirm" value="N">미확인</td>
+					<td><input type="radio" name="v_confirm" value="Y">확인&nbsp;&nbsp;<input type="radio" name="v_confirm" value="N">미확인</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -52,5 +55,6 @@
 			</table>
 		</form>
 	</section>
+	<jsp:include page="./deco/footer.jsp"/>
 </body>
 </html>

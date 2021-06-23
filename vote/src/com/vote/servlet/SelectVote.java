@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vote.controller.Vote;
 import com.vote.dao.VoteDAO;
+import com.vote.dto.TestDTO;
 import com.vote.dto.VoteDTO;
 
 /**
@@ -24,8 +26,10 @@ public class SelectVote extends HttpServlet {
 		
 		VoteDAO dao = VoteDAO.getInstance();
 		List<VoteDTO> voteList = dao.selectVote();
+		List<TestDTO> testList = Vote.testVoteSelect(voteList);
 		
-		request.setAttribute("voteList", voteList);
+		request.setAttribute("voteList", testList);
+//		request.setAttribute("voteList", voteList);
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);

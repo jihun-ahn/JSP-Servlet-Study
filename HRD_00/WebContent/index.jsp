@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>메인</title>
-<link type="html/css" rel="stylesheet"  href="css/member.css">
+<link type="text/css" rel="stylesheet" href="css/member.css">
 </head>
 <body>
 	<jsp:include page="./deco/header.jsp"></jsp:include>

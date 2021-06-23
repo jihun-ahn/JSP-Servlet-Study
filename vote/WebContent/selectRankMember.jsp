@@ -7,10 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>후보자 등수</title>
+<link type="text/css" rel="stylesheet" href="css/vote.css">
 </head>
 <body>
+	<jsp:include page="./deco/header.jsp"/>
+	<jsp:include page="./deco/nav.jsp"/>
 	<section>
-		<table>
+		<table border="1">
 			<tr>
 				<td>후보번호</td>
 				<td>성명</td>
@@ -29,5 +32,6 @@
 			%>
 		</table>
 	</section>
+	<jsp:include page="./deco/footer.jsp"/>
 </body>
 </html>

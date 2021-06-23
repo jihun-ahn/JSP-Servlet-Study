@@ -3,7 +3,7 @@ package com.vote.dto;
 public class RankDTO {
 	private String m_no;
 	private String m_name;
-	private int vote;
+	private String vote;
 	
 	public String getM_no() {
 		return m_no;
@@ -17,10 +17,10 @@ public class RankDTO {
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
 	}
-	public int getVote() {
+	public String getVote() {
 		return vote;
 	}
-	public void setVote(int vote) {
+	public void setVote(String vote) {
 		this.vote = vote;
 	}
 }

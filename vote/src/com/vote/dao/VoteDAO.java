@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.vote.db.DB;
 import com.vote.dto.MemberDTO;
 import com.vote.dto.RankDTO;
+import com.vote.dto.TestDTO;
 import com.vote.dto.VoteDTO;
 
 public class VoteDAO {
@@ -42,7 +45,7 @@ public class VoteDAO {
 				mDto.setP_school(rs.getString("p_school"));
 				mDto.setM_jumin(rs.getString("m_jumin"));
 				mDto.setM_city(rs.getString("m_city"));
-				mDto.setP_tel(rs.getString("p_tel1")+"-"+rs.getString("p_tel2")+"-"+rs.getString("p_tel3"));
+				mDto.setP_tel(rs.getString("p_tel1").substring(0, 2)+"-"+rs.getString("p_tel2")+"-"+rs.getString("p_tel3"));
 				list.add(mDto);
 			}
 			
@@ -81,7 +84,7 @@ public class VoteDAO {
 	
 	public List<VoteDTO> selectVote(){
 		List<VoteDTO> list = new ArrayList<>();
-		String sql = "SELECT * FROM TBL_VOTE_202005";
+		String sql = "SELECT * FROM TBL_VOTE_202005 WHERE V_AREA = '제1투표장'";
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -114,12 +117,7 @@ public class VoteDAO {
 	
 	public List<RankDTO> selectRank(){
 		List<RankDTO> list = new ArrayList<>();
-		String sql = "SELECT tv.m_no, tm.m_name ,count(tv.m_no)"
-				+ " FROM TBL_VOTE_202005 tv INNER JOIN TBL_MEMBER_202005 tm"
-				+ " ON tv.m_no = tm.m_no"
-				+ " GROUP BY tv.m_no, tm.m_name, tv.v_confirm"
-				+ " HAVING tv.v_confirm = 'Y'"
-				+ " ORDER BY count(tv.m_no) DESC";
+		String sql = "SELECT tv.m_no, tm.m_name ,count(tv.m_no) cnt FROM TBL_VOTE_202005 tv INNER JOIN TBL_MEMBER_202005 tm ON tv.m_no = tm.m_no  GROUP BY tv.m_no, tm.m_name, tv.v_confirm HAVING tv.v_confirm = 'Y' ORDER BY count(tv.m_no) DESC";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -131,9 +129,10 @@ public class VoteDAO {
 		
 			while(rs.next()) {
 				RankDTO rDto = new RankDTO();
-				rDto.setM_no(rs.getString(1));
-				rDto.setM_name(rs.getString(2));
-				rDto.setVote(rs.getInt(3));
+				rDto.setM_no(rs.getString("m_no"));
+				rDto.setM_name(rs.getString("m_name"));
+				rDto.setVote(rs.getString("cnt"));
+				list.add(rDto);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -142,4 +141,5 @@ public class VoteDAO {
 		}
 		return list;
 	}
+
 }
