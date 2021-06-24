@@ -45,7 +45,7 @@ public class VoteDAO {
 				mDto.setP_school(rs.getString("p_school"));
 				mDto.setM_jumin(rs.getString("m_jumin"));
 				mDto.setM_city(rs.getString("m_city"));
-				mDto.setP_tel(rs.getString("p_tel1").substring(0, 2)+"-"+rs.getString("p_tel2")+"-"+rs.getString("p_tel3"));
+				mDto.setP_tel(rs.getString("p_tel1").trim()+"-"+rs.getString("p_tel2")+"-"+rs.getString("p_tel3"));
 				list.add(mDto);
 			}
 			

@@ -12,6 +12,7 @@
 	<jsp:include page="./deco/header.jsp"/>
 	<jsp:include page="./deco/nav.jsp"/>
 	<section>
+		<h1>투표하기</h1>
 		<form action="InsertVote" method="POST" name="frm">
 			<table border="1" id="tbl">
 				<tr>

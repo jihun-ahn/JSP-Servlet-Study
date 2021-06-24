@@ -25,8 +25,14 @@ public class Vote {
 			
 			SimpleDateFormat b = new SimpleDateFormat("yyyy년MM월dd일");
 			Date jumin = null;
+			String century = "";
+			if(vote.getV_jumin().substring(6, 7).equals("3") || vote.getV_jumin().substring(6, 7).equals("4")) {
+				century = "20";
+			}else if (vote.getV_jumin().substring(6, 7).equals("1") || vote.getV_jumin().substring(6, 7).equals("2")) {
+				century = "19";
+			}
 			try {
-				jumin = format.parse("19"+vote.getV_jumin().substring(0,6));
+				jumin = format.parse(century+vote.getV_jumin().substring(0,6));
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -36,9 +42,9 @@ public class Vote {
 			int age = ((num-Integer.parseInt(format.format(jumin)))/10000);
 								
 			String gender = "";
-			if(vote.getV_jumin().substring(6, 7).equals("1")){
+			if(vote.getV_jumin().substring(6, 7).equals("1") || vote.getV_jumin().substring(6, 7).equals("3")){
 				gender="남";
-			}else if(vote.getV_jumin().substring(6, 7).equals("2")){
+			}else if(vote.getV_jumin().substring(6, 7).equals("2") || vote.getV_jumin().substring(6, 7).equals("4")){
 				gender="여";
 			}
 			String time = vote.getV_time().substring(0, 2)+":"+vote.getV_time().substring(2, 4);			

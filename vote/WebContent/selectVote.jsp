@@ -16,6 +16,7 @@
 	<jsp:include page="./deco/header.jsp"/>
 	<jsp:include page="./deco/nav.jsp"/>
 	<section>
+		<h1>투표검수조회</h1>
 		<table border="1">
 			<tr>
 				<td>성명</td>

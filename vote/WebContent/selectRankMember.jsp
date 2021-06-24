@@ -13,6 +13,7 @@
 	<jsp:include page="./deco/header.jsp"/>
 	<jsp:include page="./deco/nav.jsp"/>
 	<section>
+		<h1>후보자등수</h1>
 		<table border="1">
 			<tr>
 				<td>후보번호</td>
