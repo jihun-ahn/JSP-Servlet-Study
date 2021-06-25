@@ -12,7 +12,7 @@ function chk(){
 		document.frm.v_name.focus();
 		return false;
 	}
-	if(!document.frm.m_no.value){
+	if(document.frm.m_no.value=="0"){
 		alert("후보번호가 입력되지 않았습니다!");
 		document.frm.m_no.focus();
 		return false;
@@ -29,9 +29,9 @@ function chk(){
 	}
 	if(!document.frm.v_confirm.value){
 		alert("유권자확인이 선택되지 않았습니다!");
-		document.frm.v_confirm.focus();
 		return false;
 	}
+	alert("투표하기 정보가 정상적으로 등록 되었습니다!");
 	return true;
 }
 

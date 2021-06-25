@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.vote.dto.MemberDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +19,7 @@
 			<table border="1" id="tbl">
 				<tr>
 					<td>주민번호</td>
-					<td><input type="text" name="v_jumin" id="v_jumin"></td>
+					<td><input type="text" name="v_jumin" id="v_jumin" size="25">&nbsp;<span>예 : 8906153154726</span></td>
 				</tr>
 				<tr>
 					<td>성명</td>
@@ -27,11 +29,13 @@
 					<td>투표번호</td>
 					<td>
 						<select name="m_no" id="m_no">
-							<option value="1">[1] 김후보
-							<option value="2">[2] 이후보
-							<option value="3">[3] 박후보
-							<option value="4">[4] 조후보
-							<option value="5">[5] 최후보
+							<option value="0">후보 선택</option>
+							<%
+								List<MemberDTO> memberList = (List)request.getAttribute("memberList");
+								for(MemberDTO member:memberList){
+									out.println("<option value="+member.getM_no()+">["+member.getM_no()+"] "+member.getM_name()+"</option>");
+								}
+							%>
 						</select>
 					</td>
 				</tr>

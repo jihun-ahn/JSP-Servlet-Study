@@ -1,6 +1,7 @@
 package com.vote.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vote.dao.VoteDAO;
+import com.vote.dto.MemberDTO;
 import com.vote.dto.VoteDTO;
 
 
@@ -19,6 +21,11 @@ public class InsertVote extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "insertVote.jsp";
 		
+		VoteDAO dao = VoteDAO.getInstance();
+		List<MemberDTO> list = dao.selectMember();
+		
+		request.setAttribute("memberList", list);
+		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
@@ -26,7 +33,7 @@ public class InsertVote extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String url = "SelectVote";
+		String url = "index.jsp";
 		
 		VoteDTO vDto = new VoteDTO();
 		vDto.setV_jumin(request.getParameter("v_jumin"));
