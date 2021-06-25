@@ -32,7 +32,9 @@
 				}
 			%>
 		</table>
-		<input type="button" value="작성" id="write" onclick="location.href='WriteBoard'">
+		<div class="button">
+			<input type="button" value="작성" id="write" onclick="location.href='WriteBoard'">
+		</div>
 	</section>
 	<jsp:include page="./include/footer.jsp"></jsp:include>
 </body>

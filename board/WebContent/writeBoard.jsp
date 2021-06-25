@@ -10,7 +10,6 @@
 <body>
 	<jsp:include page="./include/header.jsp"></jsp:include>
 	<section>
-	
 		<h1>게시물 작성</h1>
 		<form action="WriteBoard" method="POST">
 			<table border="1">
@@ -24,11 +23,13 @@
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td><textarea rows="10" cols="30" name="content"></textarea></td>
+					<td><textarea rows="10" cols="70" name="content"></textarea></td>
 				</tr>
 			</table>
-			<input type="button" value="목록" onclick="location.href='SelectAllBoard'">
-			<input type="submit" value="완료">
+			<div class="button">
+				<input type="button" value="목록" onclick="location.href='SelectAllBoard'">
+				<input type="submit" value="완료">
+			</div>
 		</form>
 	</section>
 	<jsp:include page="./include/footer.jsp"></jsp:include>

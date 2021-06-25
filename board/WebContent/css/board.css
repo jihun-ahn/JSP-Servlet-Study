@@ -6,7 +6,7 @@
 body{
 	width: 100vh;
 }
-header, footer, section{
+header, footer, section, article{
 	border: 1px solid black;
 	margin-top:3px;
 	margin-bottom:3px;
@@ -14,12 +14,19 @@ header, footer, section{
 header, footer{
 	text-align: center;
 }
-section>*:not(#write){
+section>*:not(.button), form>table, form>table input{
 	width:90%;
 }
-#write{
+.button{
 	display: block;
-	margin-left: 90%;
+	margin-left: 80%;
+	padding: 0;
+}
+#write{
+	margin-left: 50%;
+}
+#view{
+	margin-left: 75%;
 }
 table{
 	border-collapse: collapse;
