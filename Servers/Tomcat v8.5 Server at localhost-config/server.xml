@@ -180,7 +180,7 @@
       </Context>
       <Context docBase="movie" path="/movie" reloadable="true" source="org.eclipse.jst.jee.server:movie">
       		<Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/myoracle" password="jsp1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="greenJSP"/>
-      </Context><Context docBase="HRD_01" path="/HRD_01" reloadable="true" source="org.eclipse.jst.jee.server:HRD_01"/><Context docBase="HRD_00" path="/HRD_00" reloadable="true" source="org.eclipse.jst.jee.server:HRD_00"/><Context docBase="vote" path="/vote" reloadable="true" source="org.eclipse.jst.jee.server:vote"/><Context docBase="board" path="/board" reloadable="true" source="org.eclipse.jst.jee.server:board"/></Host>
+      </Context><Context docBase="HRD_01" path="/HRD_01" reloadable="true" source="org.eclipse.jst.jee.server:HRD_01"/><Context docBase="HRD_00" path="/HRD_00" reloadable="true" source="org.eclipse.jst.jee.server:HRD_00"/><Context docBase="vote" path="/vote" reloadable="true" source="org.eclipse.jst.jee.server:vote"/><Context docBase="board" path="/board" reloadable="true" source="org.eclipse.jst.jee.server:board"/><Context docBase="vote2" path="/vote2" reloadable="true" source="org.eclipse.jst.jee.server:vote2"/></Host>
     </Engine>
   </Service>
 </Server>
