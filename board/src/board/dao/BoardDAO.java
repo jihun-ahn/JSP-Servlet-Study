@@ -169,11 +169,120 @@ public class BoardDAO {
 		}
 		
 	}
-	
-	
+	// 댓글 삭제
+	public void deleteComment(int idx) {
+		String sql = "DELETE comment_tbl WHERE idx="+idx;
+		
+		Connection conn = null;
+		Statement stmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();			
+			stmt.executeUpdate(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt);
+		}
+	}
 	// 게시물 수정
-	
+	public BoardDTO selectEditBoard(int idx) {
+		BoardDTO bDto = new BoardDTO();
+		String sql = "SELECT * FROM board_tbl WHERE idx="+idx;
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				bDto.setIdx(rs.getInt("idx"));
+				bDto.setWriter(rs.getString("writer"));
+				bDto.setSubject(rs.getString("subject"));
+				bDto.setContent(rs.getString("content"));
+				bDto.setT_date(rs.getTimestamp("t_date"));
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+		
+		return bDto;
+	}
+
+	public void editBoard(WriteDTO wDto, int idx) {
+		String sql = "UPDATE board_tbl"
+				+ " SET writer=?, subject=?, content=?, t_date=?"
+				+ " WHERE idx="+idx;
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, wDto.getWriter());
+			psmt.setString(2, wDto.getSubject());
+			psmt.setString(3, wDto.getContent());
+			psmt.setTimestamp(4, wDto.getDate());
+			
+			psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, psmt);
+		}
+		
+	}
 	// 게시물 삭제
+	public void deleteBoard(int idx) {
+		deleteAllComment(idx);
+		String sql = "DELETE board_tbl WHERE idx="+idx;
+		
+		Connection conn = null;
+		Statement stmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt);
+		}
+		
+	}
+
+	private void deleteAllComment(int bidx) {
+		String sql = "DELETE comment_tbl WHERE bidx="+bidx;
+		
+		Connection conn = null;
+		Statement stmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();			
+			stmt.executeUpdate(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt);
+		}
+		
+	}
 	
 	
 }

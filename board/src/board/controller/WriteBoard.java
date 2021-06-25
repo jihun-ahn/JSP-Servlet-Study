@@ -32,8 +32,8 @@ public class WriteBoard extends HttpServlet {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		WriteDTO wDto = new WriteDTO();
 		wDto.setWriter(request.getParameter("writer"));
-		wDto.setSubject(request.getParameter("writer"));
-		wDto.setContent(request.getParameter("writer"));
+		wDto.setSubject(request.getParameter("subject"));
+		wDto.setContent(request.getParameter("content"));
 		wDto.setDate(now);
 		
 		BoardDAO dao = BoardDAO.getInstance();

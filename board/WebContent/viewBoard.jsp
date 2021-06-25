@@ -27,7 +27,7 @@
 			<p>댓글 조회</p>
 			<%
 				for(CommentVO comment:commentList){
-					out.println("<p>"+comment.getWriter()+" / "+comment.getContent()+" / "+comment.getDate()+" /"+"<a href='DeleteComment?idx="+comment.getIdx()+"'>삭제</a>"+"</p>");
+					out.println("<p>"+comment.getWriter()+" / "+comment.getContent()+" / "+comment.getDate()+" /"+"<a href='DeleteComment?idx="+comment.getIdx()+"&bidx="+comment.getBidx()+"'>삭제</a>"+"</p>");
 				}
 			%>
 		</article>
@@ -43,8 +43,8 @@
 		</article>
 		<div class="button" id="view">
 			<a href="SelectAllBoard"><input type="button" value="목록"></a>
-			<a href="EditBoard"><input type="button" value="수정"></a>
-			<a href="DeleteBoard"><input type="button" value="삭제"></a>
+			<a href="EditBoard?idx=<%=bVo.getIdx() %>"><input type="button" value="수정"></a>
+			<a href="DeleteBoard?idx=<%=bVo.getIdx() %>"><input type="button" value="삭제"></a>
 		</div>
 	</section>
 	<jsp:include page="./include/footer.jsp"></jsp:include>

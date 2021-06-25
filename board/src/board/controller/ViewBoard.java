@@ -53,7 +53,7 @@ public class ViewBoard extends HttpServlet {
 			String c_date = format.format(comment.getT_date());
 			
 			cVo.setIdx(comment.getIdx());
-			cVo.setBidx(comment.getIdx());
+			cVo.setBidx(comment.getBidx());
 			cVo.setWriter(comment.getWriter());
 			cVo.setContent(comment.getContent());
 			cVo.setDate(c_date);
@@ -68,6 +68,9 @@ public class ViewBoard extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		// 댓글작성
+		
 		request.setCharacterEncoding("UTF-8");
 		CommentDTO cDto = new CommentDTO();
 		Timestamp now = new Timestamp(System.currentTimeMillis());
