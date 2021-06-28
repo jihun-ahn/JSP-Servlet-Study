@@ -1,6 +1,5 @@
 package com.vote.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +23,8 @@ public class Vote {
 			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 			
 			SimpleDateFormat b = new SimpleDateFormat("yyyy년MM월dd일");
-			Date jumin = null;
+			Date jumin = null;			
+			
 			String century = "";
 			if(vote.getV_jumin().substring(6, 7).equals("3") || vote.getV_jumin().substring(6, 7).equals("4")) {
 				century = "20";

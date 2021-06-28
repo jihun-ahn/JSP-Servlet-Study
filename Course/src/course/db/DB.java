@@ -12,6 +12,7 @@ public class DB {
 				"jdbc:oracle:thin:@localhost:1521:XE", "system", "1234");
 		return conn;
 	}
+	
 	public static void close(Connection conn, Statement stmt, ResultSet rs) {
 		try {
 			if(rs!=null) {rs.close();}

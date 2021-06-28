@@ -117,7 +117,12 @@ public class VoteDAO {
 	
 	public List<RankDTO> selectRank(){
 		List<RankDTO> list = new ArrayList<>();
-		String sql = "SELECT tv.m_no, tm.m_name ,count(tv.m_no) cnt FROM TBL_VOTE_202005 tv INNER JOIN TBL_MEMBER_202005 tm ON tv.m_no = tm.m_no  GROUP BY tv.m_no, tm.m_name, tv.v_confirm HAVING tv.v_confirm = 'Y' ORDER BY count(tv.m_no) DESC";
+		String sql = "SELECT tv.m_no, tm.m_name ,count(tv.m_no) cnt "
+				+ " FROM TBL_VOTE_202005 tv INNER JOIN TBL_MEMBER_202005 tm "
+				+ " ON tv.m_no = tm.m_no "
+				+ " GROUP BY tv.m_no, tm.m_name, tv.v_confirm "
+				+ " HAVING tv.v_confirm = 'Y' "
+				+ " ORDER BY count(tv.m_no) DESC";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
