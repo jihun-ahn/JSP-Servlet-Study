@@ -51,16 +51,33 @@ public class SelectAllCourse extends HttpServlet {
 				week="토";
 				break;
 			}
+			String sHour = "";
+			if(cVo.getStart_hour()<1000) {
+				sHour="0"+cVo.getStart_hour();
+			}else {
+				sHour = Integer.toString(cVo.getStart_hour());
+			}
+			String eHour = "";
+			if(cVo.getEnd_hour()<1000) {
+				eHour="0"+cVo.getEnd_hour();
+			}else {
+				eHour = Integer.toString(cVo.getEnd_hour());
+			}
 			cDto.setWeek(week);
-			cDto.setStart_hour(Integer.toString(cVo.getStart_hour()));
-			cDto.setEnd_hour(Integer.toString(cVo.getEnd_hour()));
+			cDto.setStart_hour(sHour);
+			cDto.setEnd_hour(eHour);
+			
+			courseList.add(cDto);
 		}
+		
+		request.setAttribute("courseList", courseList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
+		doGet(request, response);
 	}
 
 }
