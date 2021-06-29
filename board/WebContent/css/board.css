@@ -1,0 +1,47 @@
+@charset "UTF-8";
+*{
+	margin: 0 auto;
+	padding: 5px;
+}
+body{
+	width: 100vh;
+}
+header, footer, section, article{
+	border: 1px solid black;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+header, footer{
+	text-align: center;
+}
+section>*:not(.button), form>table, form>table input{
+	width:90%;
+}
+.button{
+	display: block;
+	margin-left: 80%;
+	padding: 0;
+}
+#write{
+	margin-left: 50%;
+}
+#view{
+	margin-left: 75%;
+}
+table{
+	border-collapse: collapse;
+	text-align: center;
+}
+.subject{
+	text-align: left;
+}
+th{
+	background-color: rgb(252, 245, 231); 
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+a:hover{
+	text-decoration: underline;
+}

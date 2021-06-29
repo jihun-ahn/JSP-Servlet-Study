@@ -10,8 +10,10 @@
 <link type="text/css" rel="stylesheet" href="css/member.css">
 </head>
 <body>
+	<jsp:include page="./deco/header.jsp"></jsp:include>
+	<jsp:include page="./deco/nav.jsp"></jsp:include>
 	<section>
-		<table>
+		<table border="1">
 			<tr>
 				<th>회원번호</th>
 				<th>회원성명</th>
@@ -39,5 +41,6 @@
 			%>
 		</table>
 	</section>
+	<jsp:include page="./deco/footer.jsp"></jsp:include>
 </body>
 </html>

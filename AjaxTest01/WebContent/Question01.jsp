@@ -14,7 +14,6 @@
 			<input type="button" value="ID중복체크" onclick="idChk()">&nbsp;<span id="msg"></span><br>
 		이름 : <input type="text" name="userName" id="userName"><br>
 		비밀번호 : <input type="password" name="userPwd" id="userPwd"><br>
-			<input type="button" value="JSON 전송" onclick="jsonTransport()"><br>
 		<input type="submit" value="확인">
 		
 	</form>

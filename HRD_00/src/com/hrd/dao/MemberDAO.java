@@ -19,18 +19,20 @@ public class MemberDAO {
 		return dao;
 	}
 	public int selectLastNum() {
-		String sql = "SELECT MAX(custno) AS num FROM member_tbl_02";
-		int num = -1;
+		String sql = "SELECT LAST_NUMBER"
+				+ " FROM USER_SEQUENCES"
+				+ " WHERE SEQUENCE_NAME = UPPER('member_tbl_seq')";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		int num = -1;
 		try {
 			conn = DB.getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				num = rs.getInt("num")+1;
+				num = rs.getInt(1);
 			}
 
 		}catch (Exception e) {
@@ -76,7 +78,7 @@ public class MemberDAO {
 	}
 	
 	public void insertMember(MemberVO mVo) {
-		String sql = "INSERT INTO member_tbl_02 VALUES(?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO member_tbl_02 VALUES(member_tbl_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -85,13 +87,12 @@ public class MemberDAO {
 			conn = DB.getConnection();
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setInt(1, mVo.getCustno());
-			psmt.setString(2, mVo.getCustname());
-			psmt.setString(3, mVo.getPhone());
-			psmt.setString(4, mVo.getAddress());
-			psmt.setTimestamp(5, mVo.getJoindate());
-			psmt.setString(6, mVo.getGrade());
-			psmt.setString(7, mVo.getCity());
+			psmt.setString(1, mVo.getCustname());
+			psmt.setString(2, mVo.getPhone());
+			psmt.setString(3, mVo.getAddress());
+			psmt.setTimestamp(4, mVo.getJoindate());
+			psmt.setString(5, mVo.getGrade());
+			psmt.setString(6, mVo.getCity());
 			
 			psmt.executeUpdate();
 		}catch (Exception e) {
@@ -145,7 +146,7 @@ public class MemberDAO {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				mVo.setCustno(rs.getInt("custno"));
 				mVo.setCustname(rs.getString("custname"));
 				mVo.setPhone(rs.getString("phone"));
