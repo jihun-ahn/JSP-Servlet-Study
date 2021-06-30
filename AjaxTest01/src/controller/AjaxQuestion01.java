@@ -30,6 +30,7 @@ public class AjaxQuestion01 extends HttpServlet {
 			if(member.getUserId().equals(userId)){
 				out.println("중복된 ID가 존재합니다.");
 				chk=0;
+				break;
 			}
 		}
 		if(chk==-1) {
@@ -39,7 +40,7 @@ public class AjaxQuestion01 extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }
