@@ -7,8 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="include/header.jsp"/>
+	<jsp:include page="include/nav.jsp"/>
+	<section>
 	<form action="InsertSignUp" method="POST">
-		<table>
+		<table border="1">
 			<tr>
 				<td><label for="id">아이디</label></td>
 				<td><input type="text" name="id" id="id"></td>
@@ -39,5 +42,6 @@
 			</tr>
 		</table>
 	</form>
+	</section>
 </body>
 </html>

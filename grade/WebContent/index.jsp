@@ -8,6 +8,9 @@
 <script type="text/javascript" src="script/script.js"></script>
 </head>
 <body>
+	<jsp:include page="include/header.jsp"/>
+	<jsp:include page="include/nav.jsp"/>
+	<section>
 	<%
 		session.removeAttribute("id");
 	%>
@@ -28,5 +31,6 @@
 			</tr>
 		</table>
 	</form>
+	</section>
 </body>
 </html>

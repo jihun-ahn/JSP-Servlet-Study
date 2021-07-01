@@ -8,17 +8,24 @@
 <title>선생 메뉴</title>
 </head>
 <body>
+	<jsp:include page="include/header.jsp"/>
+	<jsp:include page="include/nav.jsp"/>
+	<section>
 	<% UserDTO dto = (UserDTO)session.getAttribute("dto"); %>
-	<form action="SelectScore" method="POST">
-		<table>
+	<form action="SelectTeacher" method="POST">
+		<table border="1">
 			<tr>
-				<td><%=dto.getId() %>(<%=dto.getName() %>)님 환영합니다.</td>
+				<td>
+					<%=dto.getId() %>(<%=dto.getName() %>)선생님 환영합니다.
+					<input type="hidden" name="t_class" value="${dto.u_class}">
+				</td>
 			</tr>
 			<tr>
-				<td><input type="button" value="학생 조회" onclick="location.href=''"></td>
-				<td><input type="button" value="과목 조회" onclick="location.href=''"></td>
+				<td><input type="submit" value="학생 조회"></td>
+				<td><input type="button" value="과목 조회" onclick="location.href='SelectTeacher'"></td>
 			</tr>
 		</table>
 	</form>
+	</section>
 </body>
 </html>
