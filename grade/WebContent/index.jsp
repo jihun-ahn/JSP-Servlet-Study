@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>메인</title>
 <script type="text/javascript" src="script/script.js"></script>
+<link rel="stylesheet" href="css/grade.css">
 </head>
 <body>
 	<jsp:include page="include/header.jsp"/>

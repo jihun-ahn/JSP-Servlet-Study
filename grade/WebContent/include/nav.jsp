@@ -7,8 +7,9 @@
 	if(dto!=null){
 %>
 	<ul>
-		<li><%=dto.getName() %>(<%=dto.getId() %>)님 환영합니다.</li>
-		<li><input type="button" value="로그아웃" onclick="location.href='LogOut'"></li>
+		<li><%=dto.getName() %>(<%=dto.getId() %>)님 환영합니다.
+			<input type="button" value="로그아웃" onclick="location.href='LogOut'">
+		</li>
 	</ul>
 <%
 	} 

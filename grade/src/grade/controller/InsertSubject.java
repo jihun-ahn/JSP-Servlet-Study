@@ -30,6 +30,7 @@ public class InsertSubject extends HttpServlet {
 		String name = request.getParameter("name");
 		GradeDAO dao = GradeDAO.getInstance();
 		dao.insertSubject(id, name);
+		dao.insertSubject(id);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

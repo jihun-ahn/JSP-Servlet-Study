@@ -1,1 +1,24 @@
 @charset "UTF-8";
+*{
+	margin: 0 auto;
+	padding: 5px;
+}
+header{
+	background-color:skyblue;
+}
+header h1{
+	text-align:center;
+	color:white;
+}
+ul{
+	list-style: none;
+}
+nav li{
+	text-align:right;
+}
+table{
+	border-collapse:collapse;
+}
+.button{
+	text-align:right;
+}

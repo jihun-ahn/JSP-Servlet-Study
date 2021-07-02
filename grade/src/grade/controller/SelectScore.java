@@ -15,10 +15,8 @@ import grade.dao.GradeDAO;
 import grade.dto.ScoreClassDTO;
 import grade.dto.ScoreDTO;
 import grade.dto.ScoreVO;
+import grade.dto.SubjectVO;
 
-/**
- * Servlet implementation class SelectScore
- */
 @WebServlet("/SelectScore")
 public class SelectScore extends HttpServlet {
 
@@ -27,19 +25,24 @@ public class SelectScore extends HttpServlet {
 		String name = request.getParameter("name");
 		
 		GradeDAO dao = GradeDAO.getInstance();
-		ScoreVO sVo = dao.selectTargetScore(name);
+		List<SubjectVO> subjectList = dao.selectAllSubject();
+		int subjectNum = subjectList.size();
+		ScoreVO sVo = dao.selectTargetScore(name, subjectNum);
 		ScoreDTO dto = new ScoreDTO();
+		List<Integer> scores = new ArrayList<>();
 		dto.setName(sVo.getName());
-		dto.setKor(sVo.getKor());
-		dto.setEng(sVo.getEng());
-		dto.setMath(sVo.getMath());
-		dto.setSci(sVo.getSci());
-		dto.setSoc(sVo.getSoc());
-		int total = sVo.getKor()+sVo.getEng()+sVo.getMath()+sVo.getSci()+sVo.getSoc();		
+		int total = 0;
+		for(int score:sVo.getScores()) {
+			total +=score;
+			scores.add(score);
+		}
+		dto.setScores(scores);
 		dto.setTotal(total);
-		double avg = total/5.0;		
+		double avg = Math.round(10*total/(double)subjectNum)/10.0;		
 		dto.setAvg(avg);
+		
 		request.setAttribute("dto", dto);
+		request.setAttribute("subjectList", subjectList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
@@ -49,48 +52,60 @@ public class SelectScore extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String url = "selectClassScore.jsp";
 		
-		String s_class = request.getParameter("s_class");
+		String s_class = request.getParameter("s_class");				// 반 이름
+		
 		GradeDAO dao = GradeDAO.getInstance();
-		List<ScoreVO> list = dao.selectAllScore(s_class);
-		List<ScoreDTO> scoreList = new ArrayList<>();
-		ScoreClassDTO classScore = new ScoreClassDTO(s_class);
+		List<SubjectVO> subjectList = dao.selectAllSubject();			// 전체 과목
+		int subjectNum = dao.getSubjectNumber();						// 과목 갯수
+		List<ScoreVO> list = dao.selectAllScore(s_class, subjectNum);	// 반 학생 정보 리스트
+		List<ScoreDTO> scoreList = new ArrayList<>();					// 표현 될 정보를 저장 할 리스트
+		ScoreClassDTO classScore = new ScoreClassDTO(s_class);			// 전체 반 평균을 저장할 리스트
 		int total = 0;
 		double avg = 0;
-		
-		for(ScoreVO sVo:list) {
+		double total_avg = 0;
+		double all_avg = 0;
+		double subjectTotalScore = 0;
+		List<Integer> scores = new ArrayList<>();		// 모든 점수가 저장 될 리스트
+		List<Double> avgList = new ArrayList<>();		// 과목별 평균점수가 저장 될 리스트
+		for(ScoreVO sVo:list) {							// DB에서 뽑아온 정보를 가공하기 위한 for문
+			List<Integer> studentScore = new ArrayList<>();
 			ScoreDTO dto = new ScoreDTO();
 			dto.setName(sVo.getName());
-			dto.setKor(sVo.getKor());
-			dto.setEng(sVo.getEng());
-			dto.setMath(sVo.getMath());
-			dto.setSci(sVo.getSci());
-			dto.setSoc(sVo.getSoc());
-			total = sVo.getKor()+sVo.getEng()+sVo.getMath()+sVo.getSci()+sVo.getSoc();
+			for(int score:sVo.getScores()) {
+				total += score;
+				studentScore.add(score);
+				scores.add(score);
+			}
+			dto.setScores(studentScore);
 			dto.setTotal(total);
-			avg = total/5.0;
+			total_avg+=total;
+			avg = total/(double)subjectNum;
+			all_avg+=avg;
 			dto.setAvg(avg);
+			total=0;
 			scoreList.add(dto);
-			
-			classScore.setClass_kor(classScore.getClass_kor()+sVo.getKor());
-			classScore.setClass_eng(classScore.getClass_eng()+sVo.getEng());
-			classScore.setClass_math(classScore.getClass_math()+sVo.getMath());
-			classScore.setClass_sci(classScore.getClass_sci()+sVo.getSci());
-			classScore.setClass_soc(classScore.getClass_soc()+sVo.getSoc());
-			
 		}
-		double size = (double)scoreList.size();
-		classScore.setClass_kor(classScore.getClass_kor()/size);
-		classScore.setClass_eng(classScore.getClass_eng()/size);
-		classScore.setClass_math(classScore.getClass_math()/size);
-		classScore.setClass_sci(classScore.getClass_sci()/size);
-		classScore.setClass_soc(classScore.getClass_soc()/size);
+		avg=0;
+		for(int i=0;i<subjectNum;i++) {											// 각 과목별  평균을 저장하기 위한 for문
+			for(int j=i;j<scores.size();j+=subjectNum) {						// 과목끼리 나누기위한 for문
+				subjectTotalScore+=scores.get(j);								// 과목별 총점
+			}
+			subjectTotalScore= subjectTotalScore/(double)list.size();			// 총점/과목갯수
+			avgList.add(subjectTotalScore);										// 평균 저장
+			subjectTotalScore=0;
+		}
+		total_avg= Math.round(10*total_avg/list.size())/10.0;
+		all_avg=Math.round(10*all_avg/list.size())/10.0;
 		
-		classScore.setClass_total(classScore.getClass_kor()+classScore.getClass_eng()+classScore.getClass_math()+classScore.getClass_sci()+classScore.getClass_soc());
-		classScore.setClass_avg(classScore.getClass_total()/5);
+		classScore.setClass_name(s_class);
+		classScore.setClass_avg(avgList);
+		classScore.setTotal_avg(total_avg);
+		classScore.setAll_avg(all_avg);
 		
-		request.setAttribute("list", scoreList);
-		request.setAttribute("classScore", classScore);
-		request.setAttribute("s_class", s_class);
+		request.setAttribute("list", scoreList);			// List<ScoreDTO>
+		request.setAttribute("classScore", classScore);		// ScoreClassDTO
+		request.setAttribute("s_class", s_class);			// String
+		request.setAttribute("subjectList", subjectList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>과목 등록</title>
 </head>
+<link rel="stylesheet" href="css/grade.css">
 <body>
 	<jsp:include page="include/header.jsp"/>
 	<jsp:include page="include/nav.jsp"/>

@@ -9,9 +9,9 @@ import java.util.List;
 
 import grade.db.DBManager;
 import grade.dto.ScoreClassDTO;
+import grade.dto.SubjectVO;
 import grade.dto.ScoreVO;
 import grade.dto.UserDTO;
-import grade.dto.UserVO;
 
 public class GradeDAO {
 	private GradeDAO() {}
@@ -104,7 +104,7 @@ public class GradeDAO {
 	}
 	
 	// 개인 성적 조회
-	public ScoreVO selectTargetScore(String name) {
+	public ScoreVO selectTargetScore(String name, int subjectNum) {
 		ScoreVO sVo = new ScoreVO();
 		String sql = "SELECT * FROM score_tbl WHERE name='"+name+"'";
 		
@@ -118,12 +118,12 @@ public class GradeDAO {
 			rs = stmt.executeQuery(sql);
 			
 			if(rs.next()) {
-				sVo.setName(rs.getString("name"));
-				sVo.setKor(rs.getInt("kor"));
-				sVo.setEng(rs.getInt("eng"));
-				sVo.setMath(rs.getInt("math"));
-				sVo.setSci(rs.getInt("sci"));
-				sVo.setSoc(rs.getInt("soc"));
+				List<Integer> subjectScore = new ArrayList<>();
+				sVo.setName(rs.getString(1));
+				for(int i=0;i<subjectNum;i++) {
+					subjectScore.add(rs.getInt(i+2));
+				}
+				sVo.setScores(subjectScore);				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,9 +134,9 @@ public class GradeDAO {
 	}
 	
 	// 클래스 성적 조회
-	public List<ScoreVO> selectAllScore(String u_class){
+	public List<ScoreVO> selectAllScore(String u_class, int subjectNum){
 		List<ScoreVO> list = new ArrayList<>();
-		String sql = "SELECT st.name, kor, eng, math, sci, soc "
+		String sql = "SELECT * "
 				+ " FROM student_tbl st join score_tbl sc "
 				+ " ON st.name=sc.name "
 				+ " WHERE s_class = '"+u_class+"'";
@@ -152,12 +152,13 @@ public class GradeDAO {
 			
 			while(rs.next()) {
 				ScoreVO sVo = new ScoreVO();
-				sVo.setName(rs.getString("name"));
-				sVo.setKor(rs.getInt("kor"));
-				sVo.setEng(rs.getInt("eng"));
-				sVo.setMath(rs.getInt("math"));
-				sVo.setSci(rs.getInt("sci"));
-				sVo.setSoc(rs.getInt("soc"));
+				List<Integer> scores = new ArrayList<>();
+				sVo.setName(rs.getString(2));
+				
+				for(int i=0;i<subjectNum;i++) {
+					scores.add(rs.getInt(i+6));					
+				}
+				sVo.setScores(scores);
 				list.add(sVo);
 			}
 			
@@ -166,19 +167,13 @@ public class GradeDAO {
 		} finally {
 			DBManager.close(conn, stmt, rs);
 		}
-		
 		return list;
-	}
+	}		
 	
-	// 전체 반별 평균
-	public List<ScoreClassDTO> selectAllClassScore(){
-		
-		List<ScoreClassDTO> list = new ArrayList<>();
-		
-		String sql = "SELECT st.s_class, avg(kor), avg(eng), avg(math), avg(sci), avg(soc) " + 
-				" FROM student_tbl st join score_tbl sc " + 
-				" ON st.name=sc.name " + 
-				" GROUP BY st.s_class";
+	// 과목 갯수 조회
+	public int getSubjectNumber(){
+		List<String> subjectName = new ArrayList<>();
+		String sql = "SELECT name FROM subject_tbl";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -189,25 +184,79 @@ public class GradeDAO {
 			rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				ScoreClassDTO dto = new ScoreClassDTO(rs.getString("s_class"));
-				dto.setClass_kor(rs.getDouble(2));
-				dto.setClass_eng(rs.getDouble(3));
-				dto.setClass_math(rs.getDouble(4));
-				dto.setClass_sci(rs.getDouble(5));
-				dto.setClass_soc(rs.getDouble(6));
-				dto.setClass_total(rs.getDouble(2)+rs.getDouble(3)+rs.getDouble(4)+rs.getDouble(5)+rs.getDouble(6));
-				dto.setClass_avg((double)dto.getClass_total()/5);
-				list.add(dto);
+				subjectName.add(rs.getString("name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, stmt, rs);
 		}
+		return subjectName.size();
+	}
+	
+	// 전체 점수 조회
+	public List<ScoreVO> selectTest(int size){
+		List<ScoreVO> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM score_tbl";
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				ScoreVO dto = new ScoreVO();
+				List<Integer> subjectScore = new ArrayList<>();
+				dto.setName(rs.getString("name"));
+				for(int i=0;i<size;i++) {
+					subjectScore.add(rs.getInt(i+2));
+				}
+				dto.setScores(subjectScore);
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+		
 		return list;
 	}
 	
-	// 과목 등록
+	// 과목 조회
+	public List<SubjectVO> selectAllSubject(){
+		List<SubjectVO> subjectList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM subject_tbl";
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				SubjectVO sVo = new SubjectVO();
+				sVo.setId(rs.getString(1));
+				sVo.setName(rs.getString(2));
+				subjectList.add(sVo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+		
+		return subjectList;
+	}
+	
+	// 과목 등록(과목 테이블)
 	public void insertSubject(String id, String name) {
 		String sql = "INSERT INTO subject_tbl VALUES(?, ?)";
 		Connection conn = null;
@@ -225,6 +274,24 @@ public class GradeDAO {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, psmt);
+		}
+	}
+	// 과목 등록(성적 테이블)
+	public void insertSubject(String id) {
+		String sql = "ALTER TABLE score_tbl " + 
+				" ADD ("+id+" number(3) default 0)";
+		Connection conn = null;
+		Statement stmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();			
+			stmt.executeUpdate(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt);
 		}
 	}
 	

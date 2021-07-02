@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>학생조회</title>
+<link rel="stylesheet" href="css/grade.css">
 </head>
 <body>
 	<jsp:include page="include/header.jsp"/>

@@ -1,6 +1,7 @@
 package grade.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import grade.dao.GradeDAO;
 import grade.dto.ScoreClassDTO;
+import grade.dto.ScoreDTO;
+import grade.dto.ScoreVO;
+import grade.dto.SubjectVO;
 import grade.dto.UserDTO;
 
 
@@ -23,9 +27,18 @@ public class SelectTeacher extends HttpServlet {
 		//과목조회
 		String url = "selectAllClassScore.jsp";
 		GradeDAO dao = GradeDAO.getInstance();
-		List<ScoreClassDTO> list = dao.selectAllClassScore();
 		
-		request.setAttribute("list", list);
+		List<SubjectVO> subjectList = dao.selectAllSubject();
+		ScoreClassDTO classScoreA = ClassScore.getClassScore("A");
+		ScoreClassDTO classScoreB = ClassScore.getClassScore("B");
+		
+		List<ScoreClassDTO> list = new ArrayList<>();
+		list.add(classScoreA);
+		list.add(classScoreB);
+		
+		
+		request.setAttribute("subjectList", subjectList);
+		request.setAttribute("classScore", list);// List<ScoreClassDTO>
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

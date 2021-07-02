@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
+<link rel="stylesheet" href="css/grade.css">
 </head>
 <body>
 	<jsp:include page="include/header.jsp"/>
