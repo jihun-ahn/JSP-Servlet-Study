@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>과목 조회</title>
 <link rel="stylesheet" href="css/grade.css">
+<script type="text/javascript" src="script/script.js"></script>
 </head>
 <body>
 	<jsp:include page="include/header.jsp"/>
@@ -20,7 +21,7 @@
 				List<ScoreClassDTO> classScore = (List)request.getAttribute("classScore");	// 반 평균
 			%>
 			<h1>전체 성적 조회</h1>
-			<table border="1">
+			<table class="score">
 				<% 
 					out.println("<tr>");
 					out.println("<th>반</th>");
@@ -46,8 +47,10 @@
 			</table>
 			<div class="button">
 				<input type="button" value="과목 등록" onclick="location.href='InsertSubject'">
+				<input type="button" value="뒤로가기" onclick="window.history.back()">
 			</div>
 		</article>
 	</section>
+	<jsp:include page="include/footer.jsp"/>
 </body>
 </html>

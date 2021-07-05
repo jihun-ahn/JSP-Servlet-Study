@@ -15,23 +15,31 @@
 	<%
 		session.removeAttribute("id");
 	%>
-	<form action="logIn" method="POST" name="frm">
-		<table>
-			<tr>
-				<td><label for="id">아이디</label></td>
-				<td><input type="text" name="id" id="id"></td>
-				
-				<td rowspan="2">
-					<input type="submit" value="로그인" onclick="return loginChk()">
-					<input type="button" value="회원가입" onclick="location.href='InsertSignUp'">
-				</td>
-			</tr>
-			<tr>
-				<td><label for="pwd">비밀번호</label></td>
-				<td><input type="password" name="pwd" id="pwd"></td>
-			</tr>
-		</table>
-	</form>
+		<article>
+			<form action="logIn" method="POST" name="frm">
+				<table>
+					<thead>
+						<tr>
+							<td colspan="2"><h1>학생 / 선생님</h1></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" name="id" id="id" placeholder="아이디를 입력하세요." size="30"></td>
+							
+							<td rowspan="2">
+								<input type="submit" class="btn" value="로그인" onclick="return loginChk()">
+								<input type="button" class="btn" value="회원가입" onclick="location.href='InsertSignUp'">
+							</td>
+						</tr>
+						<tr>
+							<td><input type="password" name="pwd" id="pwd" placeholder="비밀번호를 입력하세요." size="30"></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</article>
 	</section>
+	<jsp:include page="include/footer.jsp"/>
 </body>
 </html>

@@ -40,6 +40,10 @@ public class InsertSignUp extends HttpServlet {
 		
 		GradeDAO dao = GradeDAO.getInstance();
 		dao.insertSignUp(dto);
+		int subjectNum = dao.selectAllSubject().size();
+		if(job.equals("student")) {
+			dao.insertScore(name, subjectNum);
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

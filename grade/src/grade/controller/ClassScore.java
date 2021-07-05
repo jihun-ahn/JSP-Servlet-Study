@@ -13,7 +13,7 @@ public class ClassScore {
 	public static ScoreClassDTO getClassScore(String u_class) {
 		
 		GradeDAO dao = GradeDAO.getInstance();
-		int subjectNum = dao.getSubjectNumber();						// 과목 갯수
+		int subjectNum = dao.selectAllSubject().size();						// 과목 갯수
 		List<ScoreVO> list = dao.selectAllScore(u_class, subjectNum);	// 반 학생 정보 리스트
 		ScoreClassDTO classScore = new ScoreClassDTO(u_class);			// 전체 반 평균을 저장할 리스트
 		int total = 0;
@@ -38,7 +38,7 @@ public class ClassScore {
 			for(int j=i;j<scores.size();j+=subjectNum) {						// 과목끼리 나누기위한 for문
 				subjectTotalScore+=scores.get(j);								// 과목별 총점
 			}
-			subjectTotalScore= subjectTotalScore/(double)list.size();			// 총점/과목갯수
+			subjectTotalScore= Math.round(10*subjectTotalScore/list.size())/10.0;			// 총점/과목갯수
 			avgList.add(subjectTotalScore);										// 평균 저장
 			subjectTotalScore=0;
 		}

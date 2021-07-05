@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import grade.dao.GradeDAO;
+import grade.dto.ClassVO;
 import grade.dto.ScoreClassDTO;
-import grade.dto.ScoreDTO;
-import grade.dto.ScoreVO;
 import grade.dto.SubjectVO;
 import grade.dto.UserDTO;
 
@@ -29,13 +28,13 @@ public class SelectTeacher extends HttpServlet {
 		GradeDAO dao = GradeDAO.getInstance();
 		
 		List<SubjectVO> subjectList = dao.selectAllSubject();
-		ScoreClassDTO classScoreA = ClassScore.getClassScore("A");
-		ScoreClassDTO classScoreB = ClassScore.getClassScore("B");
-		
+		List<ClassVO> classList = dao.selectClass();
 		List<ScoreClassDTO> list = new ArrayList<>();
-		list.add(classScoreA);
-		list.add(classScoreB);
 		
+		for(ClassVO cVo:classList) {
+			ScoreClassDTO classScore = ClassScore.getClassScore(cVo.getT_class());
+			list.add(classScore);
+		}
 		
 		request.setAttribute("subjectList", subjectList);
 		request.setAttribute("classScore", list);// List<ScoreClassDTO>

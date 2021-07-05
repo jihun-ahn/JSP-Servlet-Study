@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>클래스 성적 조회</title>
 <link rel="stylesheet" href="css/grade.css">
+<script type="text/javascript" src="script/script.js"></script>
 </head>
 <body>
 	<jsp:include page="include/header.jsp"/>
@@ -22,12 +23,12 @@
 			List<SubjectVO> subjectList = (List)request.getAttribute("subjectList");
 		%>
 	<h1><%=s_class%>반 성적 조회</h1>
-	<table border="1">
+	<table class="score">
 		<tr>
 			<th>이름</th>
 				<%
 					for(SubjectVO subject:subjectList){	
-						out.println("<td>"+subject.getName()+"</td>");
+						out.println("<th>"+subject.getName()+"</th>");
 					}
 				%>
 			<th>총점</th>
@@ -45,12 +46,12 @@
 				out.println("</tr>");
 			}
 			out.println("<tr>");
-			out.println("<td>반</td>");
+			out.println("<th>반</th>");
 			for(SubjectVO subject:subjectList){	
-				out.println("<td>"+subject.getName()+" 평균 "+"</td>");
+				out.println("<th>"+subject.getName()+" 평균 "+"</th>");
 			}
-			out.println("<td>총점 평균</td>");
-			out.println("<td>전체 평균</td>");
+			out.println("<th>총점 평균</th>");
+			out.println("<th>전체 평균</th>");
 			out.println("</tr>");
 			out.println("<tr>");
 			out.println("<td>"+classScore.getClass_name()+"</td>");
@@ -62,6 +63,10 @@
 			out.println("</tr>");
 		%>
 	</table>
+	<div class="button">
+		<input type="button" value="뒤로가기" onclick="window.history.back()">
+	</div>
 	</section>
+	<jsp:include page="include/footer.jsp"/>
 </body>
 </html>

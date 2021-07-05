@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import grade.db.DBManager;
-import grade.dto.ScoreClassDTO;
-import grade.dto.SubjectVO;
+import grade.dto.ClassVO;
 import grade.dto.ScoreVO;
+import grade.dto.SubjectVO;
 import grade.dto.UserDTO;
 
 public class GradeDAO {
@@ -170,30 +170,6 @@ public class GradeDAO {
 		return list;
 	}		
 	
-	// 과목 갯수 조회
-	public int getSubjectNumber(){
-		List<String> subjectName = new ArrayList<>();
-		String sql = "SELECT name FROM subject_tbl";
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = DBManager.getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			
-			while(rs.next()) {
-				subjectName.add(rs.getString("name"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, stmt, rs);
-		}
-		return subjectName.size();
-	}
-	
 	// 전체 점수 조회
 	public List<ScoreVO> selectTest(int size){
 		List<ScoreVO> list = new ArrayList<>();
@@ -311,6 +287,58 @@ public class GradeDAO {
 			while(rs.next()) {
 				String studentName = rs.getString("name");
 				list.add(studentName);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+		return list;
+	}
+
+	// 학생 가입시 점수입력
+	public void insertScore(String name, int subjectNum) {
+		String sql = "INSERT INTO score_tbl " + 
+				" VALUES(?, 0, 0, 0, 0, 0";
+		if(subjectNum>5) {
+			for(int i=0;i<subjectNum-5;i++) {
+				sql += ", 0";
+			}
+		}
+		sql += ")";
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+			psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, psmt);
+		}
+	}
+	
+	// 반 조회
+	public List<ClassVO> selectClass(){
+		List<ClassVO> list = new ArrayList<>();
+		String sql = "SELECT DISTINCT t_class FROM teacher_tbl";
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				ClassVO cVo = new ClassVO();
+				cVo.setT_class(rs.getString("t_class"));
+				list.add(cVo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

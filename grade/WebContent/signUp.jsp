@@ -5,14 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<script type="text/javascript" src="script/script.js"></script>
 <link rel="stylesheet" href="css/grade.css">
 </head>
 <body>
 	<jsp:include page="include/header.jsp"/>
 	<jsp:include page="include/nav.jsp"/>
 	<section>
-	<form action="InsertSignUp" method="POST">
-		<table border="1">
+	<form action="InsertSignUp" method="POST" name="frm">
+		<table>
 			<tr>
 				<td><label for="id">아이디</label></td>
 				<td><input type="text" name="id" id="id"></td>
@@ -37,12 +38,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<input type="submit" value="회원가입">
+				<td colspan="2" style="text-align: right">
+					<input type="submit" value="회원가입" onclick="return signUpChk()">
+					<input type="button" value="뒤로가기" onclick="window.history.back()">
 				</td>
 			</tr>
 		</table>
 	</form>
 	</section>
+	<jsp:include page="include/footer.jsp"/>
 </body>
 </html>

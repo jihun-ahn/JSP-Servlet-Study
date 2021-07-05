@@ -56,7 +56,7 @@ public class SelectScore extends HttpServlet {
 		
 		GradeDAO dao = GradeDAO.getInstance();
 		List<SubjectVO> subjectList = dao.selectAllSubject();			// 전체 과목
-		int subjectNum = dao.getSubjectNumber();						// 과목 갯수
+		int subjectNum = dao.selectAllSubject().size();						// 과목 갯수
 		List<ScoreVO> list = dao.selectAllScore(s_class, subjectNum);	// 반 학생 정보 리스트
 		List<ScoreDTO> scoreList = new ArrayList<>();					// 표현 될 정보를 저장 할 리스트
 		ScoreClassDTO classScore = new ScoreClassDTO(s_class);			// 전체 반 평균을 저장할 리스트
@@ -79,7 +79,7 @@ public class SelectScore extends HttpServlet {
 			dto.setScores(studentScore);
 			dto.setTotal(total);
 			total_avg+=total;
-			avg = total/(double)subjectNum;
+			avg = Math.round(10*total/subjectNum)/10.0;
 			all_avg+=avg;
 			dto.setAvg(avg);
 			total=0;
@@ -90,7 +90,7 @@ public class SelectScore extends HttpServlet {
 			for(int j=i;j<scores.size();j+=subjectNum) {						// 과목끼리 나누기위한 for문
 				subjectTotalScore+=scores.get(j);								// 과목별 총점
 			}
-			subjectTotalScore= subjectTotalScore/(double)list.size();			// 총점/과목갯수
+			subjectTotalScore= Math.round(10*subjectTotalScore/list.size())/10.0;			// 총점/과목갯수
 			avgList.add(subjectTotalScore);										// 평균 저장
 			subjectTotalScore=0;
 		}
