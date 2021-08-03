@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.member">
+
+	<resultMap type="memberVO" id="memVo">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="regdate" property="regdate"/>
+	</resultMap>
+	
+	<resultMap type="java.util.HashMap" id="memResult">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="regdate" property="regdate"/>
+	</resultMap>
+
+  <select id="selectAll" resultMap="memVo"><!-- id : 메서드 이름 / resultMap : 쿼리 실행 결과(객체) , resultType : 쿼리 실행 결과(기본타입) -->
+    SELECT * 
+    FROM member
+  </select> 
+  
+  <select id="selectAllToHash" resultMap="memResult"><!--  객체가 아닌 해시맵으로도 데이터를 추출할 수 있다. -->
+    SELECT * 
+    FROM member
+  </select> 
+  
+  <select id="selectCNT" resultType="int">
+  	SELECT COUNT(*) FROM member
+  </select>
+  
+  <select id="selectByEmail" resultType="memberVO" parameterType="String">
+  	SELECT * FROM member
+  	WHERE email=#{email}
+  </select>
+  <select id="insertMember" parameterType="memberVO">
+  	INSERT INTO member
+	VALUES(member_seq.nextval, #{email}, #{password}, #{name}, sysdate)
+  </select>
+  
+  <select id="updateMember" parameterType="memberVO">
+  	UPDATE member
+	SET password=#{password}, name=#{name}
+	WHERE email=#{email}
+  </select>
+  
+  <select id="deleteMember" parameterType="String">
+  	DELETE member WHERE email = #{email}
+  </select>
+  
+  <select id="selectMember" parameterType="memberVO" resultMap="memVo">
+  	SELECT * FROM member
+  	<where>
+  		<if test="email != '' and email != null">
+  			email = #{email}
+  		</if>
+  		<if test="name != '' and name != null">
+  			AND name = #{name}
+  		</if>
+  	</where>
+  	ORDER BY id ASC
+  </select>
+  
+  <select id="selectMember" parameterType="memberVO" resultMap="memVo">
+	  SELECT * FROM member
+	  <where>
+	  	<choose>
+	  		<when test="email != '' and email != null and name != '' and name != null">
+	  			email = #{email} AND name = #{name}
+	  		</when>
+	  		<when test="email != '' and email != null">
+	  			email = #{email}
+	  		</when>
+	  		<when test="name != '' and name != null">
+	  			name = #{name}
+	  		</when>
+	  	</choose>
+	  </where>
+	  ORDER BY id ASC
+  </select>
+  
+  <select id="foreachSearch" resultMap="memVo" parameterType="java.util.Map">
+  	SELECT * FROM member
+  	WHERE name in 
+  	<foreach collection="list" item="item" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
+  	
+  	ORDER BY id ASC
+  </select>
+</mapper>
