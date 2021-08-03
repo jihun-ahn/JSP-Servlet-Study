@@ -18,6 +18,5 @@
 <br>
 <a href="<c:url value="http://localhost:8090/mybatis01/SM"/>">[회원 목록 조회]</a>
 <a href="<c:url value="http://localhost:8090/mybatis01/FSM"/>">[회원 목록 조회]</a>
-
 </body>
 </html>

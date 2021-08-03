@@ -128,5 +128,6 @@ public class MemberDAO2 {  //마이바티스 적용 코드
 		SqlSession session = sqlMapper.openSession();
 		list = session.selectList("mybatis.mapper.member.foreachSearch", names);
 		return list;
-	}
+	}	
+
 }

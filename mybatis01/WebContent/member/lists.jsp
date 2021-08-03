@@ -23,6 +23,14 @@
 			<td>${m.email}</td>
 			<td>${m.password}</td>
 			<td>${m.regdate}</td>
+	<c:forEach var="m" items="${memberList}">
+		<tr>
+			<td>${m.name}</td>
+			<td>${m.userid}</td>
+			<td>${m.userpwd}</td>
+			<td>${m.email}</td>
+			<td>${m.phone}</td>
+			<td>${m.admin}</td>
 		</tr>
 	</c:forEach>
 </table>

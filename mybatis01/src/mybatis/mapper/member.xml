@@ -38,6 +38,7 @@
   	SELECT * FROM member
   	WHERE email=#{email}
   </select>
+
   <select id="insertMember" parameterType="memberVO">
   	INSERT INTO member
 	VALUES(member_seq.nextval, #{email}, #{password}, #{name}, sysdate)
